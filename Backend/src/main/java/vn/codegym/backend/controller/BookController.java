@@ -33,4 +33,15 @@ public class BookController {
         }
         return new ResponseEntity<>(bookOptional.get(), HttpStatus.OK);
     }
+
+    @GetMapping("/findByAuthor")
+    public ResponseEntity<Page<Book>> findByAuthor(@RequestParam String author, @PageableDefault(value = 8) Pageable pageable) {
+        return new ResponseEntity<>(bookService.findBookByAuthor(author, pageable), HttpStatus.OK);
+    }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Page<Book>> findByCategory(@PathVariable Long id, @PageableDefault(value = 8) Pageable pageable) {
+        return new ResponseEntity<>(bookService.findByCategory(id, pageable), HttpStatus.OK);
+    }
+
 }

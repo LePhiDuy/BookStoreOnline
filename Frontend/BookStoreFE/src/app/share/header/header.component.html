@@ -53,11 +53,9 @@
                 <ul style="display: flex; justify-content: center; align-items: center" >
                   <li><a href="index.html" class="list-nav" class="list-nav">Danh mục sách <i class="icon-arrow-down"></i></a>
                     <ul class="sub-menu-style">
-                      <li><a href="index.html" class="list-nav">Sách khoa học </a></li>
-                      <li><a href="index-2.html" class="list-nav">Sách thiếu nhi</a></li>
-                      <li><a href="index-3.html" class="list-nav">Kỹ năng sống</a></li>
-                      <li><a href="index-4.html" class="list-nav">Văn học trong nước</a></li>
-                      <li><a href="index-5.html" class="list-nav">Văn học nước ngoài</a></li>
+                      <li *ngFor="let category of categories">
+                        <a class="list-nav" [routerLink]="['/book/category', category.id]"> {{category.name}} </a>
+                      </li>
                     </ul>
                   </li>
                   <li><a href="shop.html" class="list-nav">Sách bán chạy </a>

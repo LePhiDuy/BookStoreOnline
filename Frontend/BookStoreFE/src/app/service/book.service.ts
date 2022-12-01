@@ -19,4 +19,12 @@ export class BookService {
   findById(id): Observable<Book> {
     return this.http.get<Book>(API + "book/" + id);
   }
+
+  findByAuthor(author): Observable<any> {
+    return this.http.get<any>(API + "book/findByAuthor?author=" + author);
+  }
+
+  findByCategory(id, indexPagenation, size): Observable<any> {
+    return this.http.get<any>(API + "book/category/" + id + "?page=" + indexPagenation + "&size=" + size);
+  }
 }

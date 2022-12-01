@@ -10,4 +10,5 @@ public interface IBookService {
     Page<Book> findAll(Pageable pageable);
     Optional<Book> findById(Long id);
     Page<Book> findBookByAuthor(String author, Pageable pageable);
+    Page<Book> findByCategory(Long categoryId, Pageable pageable);
 }

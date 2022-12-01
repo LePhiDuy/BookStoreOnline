@@ -24,30 +24,19 @@
               </div>
             </div>
           </div>
-<!--          <div class="product-dec-slider-small product-dec-small-style1">-->
-<!--            <div class="product-dec-small active">-->
-<!--              <img src="assets/images/product-details/small-1.jpg" alt="">-->
-<!--            </div>-->
-<!--            <div class="product-dec-small">-->
-<!--              <img src="assets/images/product-details/small-2.jpg" alt="">-->
-<!--            </div>-->
-<!--            <div class="product-dec-small">-->
-<!--              <img src="assets/images/product-details/small-3.jpg" alt="">-->
-<!--            </div>-->
-<!--            <div class="product-dec-small">-->
-<!--              <img src="assets/images/product-details/small-4.jpg" alt="">-->
-<!--            </div>-->
-<!--            <div class="product-dec-small">-->
-<!--              <img src="assets/images/product-details/small-2.jpg" alt="">-->
-<!--            </div>-->
-<!--          </div>-->
         </div>
       </div>
       <div class="col-lg-6 col-md-6">
         <div class="product-details-content pro-details-content-mrg">
           <h2>{{book.name}}</h2>
-          <span>Nhà xuất bản: {{book.publisher}}</span>
-          <span>Tác giả: {{book.author}}</span>
+          <div class="book-publisher">
+            <span>Nhà xuất bản:</span>
+            <span>{{book.publisher}}</span>
+          </div>
+          <div class="book-author">
+            <span>Tác giả:</span>
+            <span>{{book.author}}</span>
+          </div>
           <div class="product-ratting-review-wrap">
             <div class="product-ratting-digit-wrap">
               <div class="product-ratting" *ngFor="let i of numberRating">
@@ -61,33 +50,23 @@
               </div>
             </div>
             <div class="product-review-order">
-              <span>62 Reviews</span>
-              <span>242 orders</span>
+              <span>62 đánh giá</span>
             </div>
           </div>
           <div class="pro-details-price">
             <span class="new-price">{{book.price | currency : "VNĐ" : ""}} đ</span>
           </div>
           <div class="pro-details-quality">
-            <span>Quantity:</span>
+            <span>Số lượng:</span>
             <div class="cart-plus-minus">
-              <input class="cart-plus-minus-box" type="number" name="qtybutton" value="1">
+              <div class="dec qtybutton" (click)="subQuantity()">-</div>
+              <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+              <div class="inc qtybutton" (click)="addQuantity()">+</div>
             </div>
           </div>
           <div class="pro-details-action-wrap">
             <div class="pro-details-add-to-cart">
               <a title="Add to Cart" href="#">Add To Cart </a>
-            </div>
-            <div class="pro-details-action">
-              <a title="Add to Wishlist" href="#"><i class="icon-heart"></i></a>
-              <a title="Add to Compare" href="#"><i class="icon-refresh"></i></a>
-              <a class="social" title="Social" href="#"><i class="icon-share"></i></a>
-              <div class="product-dec-social">
-                <a class="facebook" title="Facebook" href="#"><i class="icon-social-facebook"></i></a>
-                <a class="twitter" title="Twitter" href="#"><i class="icon-social-twitter"></i></a>
-                <a class="instagram" title="Instagram" href="#"><i class="icon-social-instagram"></i></a>
-                <a class="pinterest" title="Pinterest" href="#"><i class="icon-social-pinterest"></i></a>
-              </div>
             </div>
           </div>
         </div>
@@ -102,13 +81,12 @@
         <div class="dec-review-topbar nav mb-45">
           <a class="active" data-toggle="tab" href="#des-details1">Chi tiết sách</a>
           <a data-toggle="tab" href="#des-details2">Thông số của sách</a>
-<!--          <a data-toggle="tab" href="#des-details3">Meterials </a>-->
           <a data-toggle="tab" href="#des-details4">Đánh giá</a>
         </div>
         <div class="tab-content dec-review-bottom">
           <div id="des-details1" class="tab-pane active">
             <div class="description-wrap">
-              <p>{{book.description}}</p>
+              <p style="color: #333333">{{book.description}}</p>
             </div>
           </div>
           <div id="des-details2" class="tab-pane">
@@ -136,7 +114,7 @@
                   <td>{{book.weight}} gram</td>
                 </tr>
                 <tr>
-                  <td class="title width1">Số trang </td>
+                  <td class="title width1">Số trang</td>
                   <td>{{book.totalPages}}</td>
                 </tr>
                 <tr>
@@ -249,251 +227,42 @@
     <div class="section-title mb-45 text-center">
       <h2>Sách cùng tác giả</h2>
     </div>
-    <div class="related-product-active">
-      <div class="product-plr-1">
-        <div class="single-product-wrap">
-          <div class="product-img product-img-zoom mb-15">
-            <a href="product-details.html">
-              <img src="assets/images/product/product-13.jpg" alt="">
-            </a>
-            <div class="product-action-2 tooltip-style-2">
-              <button title="Wishlist"><i class="icon-heart"></i></button>
-              <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-              <button title="Compare"><i class="icon-refresh"></i></button>
-            </div>
-          </div>
-          <div class="product-content-wrap-2 text-center">
-            <div class="product-rating-wrap">
-              <div class="product-rating">
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star gray"></i>
+    <div class="product-area section-padding-1 pb-75">
+      <div class="container-fluid">
+        <div class="tab-content jump">
+          <div class="tab-content jump">
+            <div id="product-1" class="tab-pane active">
+              <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12" *ngFor="let book of books.content">
+                  <div class="single-product-wrap mb-35">
+                    <div class="product-img product-img-zoom mb-20">
+                      <a [routerLink]="['/book', book.id]">
+                        <img [src]="book.imgUrl" alt="Anh sach">
+                      </a>
+                      <div class="product-action-wrap">
+                        <div class="product-action-left">
+                          <button style="font-size: 13px !important;"><i class="icon-basket-loaded"></i>Thêm vào giỏ
+                            hàng
+                          </button>
+                        </div>
+                        <div class="product-action-right tooltip-style">
+                          <button data-toggle="modal" data-target="#exampleModal"><i
+                            class="icon-size-fullscreen icons"></i><span>Xem nhanh</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="product-content-wrap">
+                      <div class="product-content-left">
+                        <h4><a href="product-details.html" class="product-name">{{book.name}}</a></h4>
+                        <div class="product-price">
+                          <span class="price">{{book.price| currency : "VNĐ":""}} đ</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <span>(2)</span>
-            </div>
-            <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-            <div class="product-price-2">
-              <span>$20.50</span>
-            </div>
-          </div>
-          <div class="product-content-wrap-2 product-content-position text-center">
-            <div class="product-rating-wrap">
-              <div class="product-rating">
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star gray"></i>
-              </div>
-              <span>(2)</span>
-            </div>
-            <h3><a href="product-details.html">Basic Joggin Shorts</a></h3>
-            <div class="product-price-2">
-              <span>$20.50</span>
-            </div>
-            <div class="pro-add-to-cart">
-              <button title="Add to Cart">Add To Cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="product-plr-1">
-        <div class="single-product-wrap">
-          <div class="product-img product-img-zoom mb-15">
-            <a href="product-details.html">
-              <img src="assets/images/product/product-14.jpg" alt="">
-            </a>
-            <span class="pro-badge left bg-red">-20%</span>
-            <div class="product-action-2 tooltip-style-2">
-              <button title="Wishlist"><i class="icon-heart"></i></button>
-              <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-              <button title="Compare"><i class="icon-refresh"></i></button>
-            </div>
-          </div>
-          <div class="product-content-wrap-2 text-center">
-            <div class="product-rating-wrap">
-              <div class="product-rating">
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star gray"></i>
-              </div>
-              <span>(2)</span>
-            </div>
-            <h3><a href="product-details.html">Make Thing Happen T-Shirt</a></h3>
-            <div class="product-price-2">
-              <span class="new-price">$35.45</span>
-              <span class="old-price">$45.80</span>
-            </div>
-          </div>
-          <div class="product-content-wrap-2 product-content-position text-center">
-            <div class="product-rating-wrap">
-              <div class="product-rating">
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star gray"></i>
-              </div>
-              <span>(2)</span>
-            </div>
-            <h3><a href="product-details.html">Make Thing Happen T-Shirt</a></h3>
-            <div class="product-price-2">
-              <span class="new-price">$35.45</span>
-              <span class="old-price">$45.80</span>
-            </div>
-            <div class="pro-add-to-cart">
-              <button title="Add to Cart">Add To Cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="product-plr-1">
-        <div class="single-product-wrap">
-          <div class="product-img product-img-zoom mb-15">
-            <a href="product-details.html">
-              <img src="assets/images/product/product-15.jpg" alt="">
-            </a>
-            <div class="product-action-2 tooltip-style-2">
-              <button title="Wishlist"><i class="icon-heart"></i></button>
-              <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-              <button title="Compare"><i class="icon-refresh"></i></button>
-            </div>
-          </div>
-          <div class="product-content-wrap-2 text-center">
-            <div class="product-rating-wrap">
-              <div class="product-rating">
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star gray"></i>
-              </div>
-              <span>(2)</span>
-            </div>
-            <h3><a href="product-details.html">Basic White Simple Sneaker</a></h3>
-            <div class="product-price-2">
-              <span>$35.45</span>
-            </div>
-          </div>
-          <div class="product-content-wrap-2 product-content-position text-center">
-            <div class="product-rating-wrap">
-              <div class="product-rating">
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star gray"></i>
-              </div>
-              <span>(2)</span>
-            </div>
-            <h3><a href="product-details.html">Basic White Simple Sneaker</a></h3>
-            <div class="product-price-2">
-              <span>$35.45</span>
-            </div>
-            <div class="pro-add-to-cart">
-              <button title="Add to Cart">Add To Cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="product-plr-1">
-        <div class="single-product-wrap">
-          <div class="product-img product-img-zoom mb-15">
-            <a href="product-details.html">
-              <img src="assets/images/product/product-18.jpg" alt="">
-            </a>
-            <div class="product-action-2 tooltip-style-2">
-              <button title="Wishlist"><i class="icon-heart"></i></button>
-              <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-              <button title="Compare"><i class="icon-refresh"></i></button>
-            </div>
-          </div>
-          <div class="product-content-wrap-2 text-center">
-            <div class="product-rating-wrap">
-              <div class="product-rating">
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star gray"></i>
-              </div>
-              <span>(2)</span>
-            </div>
-            <h3><a href="product-details.html">Tie-up Sute Sandals</a></h3>
-            <div class="product-price-2">
-              <span>$55.50</span>
-            </div>
-          </div>
-          <div class="product-content-wrap-2 product-content-position text-center">
-            <div class="product-rating-wrap">
-              <div class="product-rating">
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star gray"></i>
-              </div>
-              <span>(2)</span>
-            </div>
-            <h3><a href="product-details.html">Tie-up Sute Sandals</a></h3>
-            <div class="product-price-2">
-              <span>$55.50</span>
-            </div>
-            <div class="pro-add-to-cart">
-              <button title="Add to Cart">Add To Cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="product-plr-1">
-        <div class="single-product-wrap">
-          <div class="product-img product-img-zoom mb-15">
-            <a href="product-details.html">
-              <img src="assets/images/product/product-19.jpg" alt="">
-            </a>
-            <div class="product-action-2 tooltip-style-2">
-              <button title="Wishlist"><i class="icon-heart"></i></button>
-              <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-              <button title="Compare"><i class="icon-refresh"></i></button>
-            </div>
-          </div>
-          <div class="product-content-wrap-2 text-center">
-            <div class="product-rating-wrap">
-              <div class="product-rating">
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star gray"></i>
-              </div>
-              <span>(2)</span>
-            </div>
-            <h3><a href="product-details.html">Faded Grey T-Shirt</a></h3>
-            <div class="product-price-2">
-              <span>$65.50</span>
-            </div>
-          </div>
-          <div class="product-content-wrap-2 product-content-position text-center">
-            <div class="product-rating-wrap">
-              <div class="product-rating">
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star"></i>
-                <i class="icon_star gray"></i>
-              </div>
-              <span>(2)</span>
-            </div>
-            <h3><a href="product-details.html">Faded Grey T-Shirt</a></h3>
-            <div class="product-price-2">
-              <span>{{book.price | currency : "VNĐ" : "đ"}}</span>
-            </div>
-            <div class="pro-add-to-cart">
-              <button title="Add to Cart">Add To Cart</button>
             </div>
           </div>
         </div>
