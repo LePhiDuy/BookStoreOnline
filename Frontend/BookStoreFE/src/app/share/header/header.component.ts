@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
     this.categoryService.findAll().subscribe(
       data => {
         this.categories = data;
-        console.log(this.categories);
       }
     )
   }

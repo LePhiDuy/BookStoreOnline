@@ -5,6 +5,7 @@ import { HomepageRoutingModule } from './homepage-routing.module';
 import { HomepageComponent } from './homepage.component';
 import {HttpClientModule} from "@angular/common/http";
 import {NgxSlickJsModule} from "ngx-slickjs";
+import {CategoryModule} from "../category/category.module";
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {NgxSlickJsModule} from "ngx-slickjs";
     CommonModule,
     HomepageRoutingModule,
     HttpClientModule,
-    NgxSlickJsModule
+    NgxSlickJsModule,
+    CategoryModule
   ]
 })
 export class HomepageModule { }

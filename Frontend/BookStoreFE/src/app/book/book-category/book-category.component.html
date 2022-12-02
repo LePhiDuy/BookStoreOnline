@@ -37,7 +37,7 @@
             <div class="product-show shorting-style">
               <label>Sắp xếp :</label>
               <select>
-                <option value="">Mặc định</option>
+                <option value=""> Mặc định</option>
                 <option value=""> Tên</option>
                 <option value=""> Giá</option>
               </select>
@@ -78,6 +78,34 @@
                 </div>
               </div>
             </div>
+            <div id="shop-2" class="tab-pane">
+              <div class="shop-list-wrap mb-30" *ngFor="let book of books.content">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-5 col-md-6 col-sm-6">
+                    <div class="product-list-img">
+                      <a [routerLink]="['/book', book.id]">
+                        <img [src]="book.imgUrl" alt="Product Style">
+                      </a>
+                      <div class="product-list-quickview">
+                        <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-8 col-lg-7 col-md-6 col-sm-6">
+                    <div class="shop-list-content">
+                      <h3><a [routerLink]="['/book', book.id]">{{book.name}}</a></h3>
+                      <div class="pro-list-price">
+                        <span class="new-price">{{book.price | currency : "VNĐ" : ""}} đ</span>
+                      </div>
+                      </div>
+                      <p>{{book.description}}</p>
+                      <div class="product-list-action">
+                        <button title="Add To Cart"><i class="icon-basket-loaded"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
           </div>
           <div class="pro-pagination-style text-center mt-10" *ngIf="books.content.length > 0">
             <ul>

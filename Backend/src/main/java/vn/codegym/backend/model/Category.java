@@ -23,6 +23,8 @@ public class Category {
     private Long id;
     @Column(name = "name")
     private String name;
+    @Column(name = "image")
+    private String image;
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @JsonBackReference
     private Set<Book> books;

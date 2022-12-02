@@ -7,10 +7,11 @@ import {ShareModule} from "./share/share.module";
 import {HomepageModule} from "./homepage/homepage.module";
 import {NgxSlickJsModule} from "ngx-slickjs";
 import {BookModule} from "./book/book.module";
+import {CategoryModule} from "./category/category.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -18,6 +19,7 @@ import {BookModule} from "./book/book.module";
     ShareModule,
     HomepageModule,
     BookModule,
+    CategoryModule,
     NgxSlickJsModule.forRoot({
       links: {
         jquery: 'https://code.jquery.com/jquery-3.4.0.min.js',

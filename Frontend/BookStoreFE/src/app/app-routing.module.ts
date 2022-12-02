@@ -8,7 +8,8 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  { path: 'book', loadChildren: () => import('./book/book.module').then(m => m.BookModule) }
+  { path: 'book', loadChildren: () => import('./book/book.module').then(m => m.BookModule) },
+  { path: 'category', loadChildren: () => import('./category/category.module').then(m => m.CategoryModule) }
 ];
 
 @NgModule({
