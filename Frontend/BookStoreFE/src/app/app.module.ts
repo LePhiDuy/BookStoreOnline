@@ -8,6 +8,7 @@ import {HomepageModule} from "./homepage/homepage.module";
 import {NgxSlickJsModule} from "ngx-slickjs";
 import {BookModule} from "./book/book.module";
 import {CategoryModule} from "./category/category.module";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,8 @@ import {CategoryModule} from "./category/category.module";
     HomepageModule,
     BookModule,
     CategoryModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgxSlickJsModule.forRoot({
       links: {
         jquery: 'https://code.jquery.com/jquery-3.4.0.min.js',

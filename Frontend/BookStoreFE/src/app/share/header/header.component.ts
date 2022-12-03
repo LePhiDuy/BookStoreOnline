@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {CategoryService} from "../../service/category.service";
 import {Category} from "../../model/category";
+import { FormControl, FormGroup} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -9,10 +11,15 @@ import {Category} from "../../model/category";
 })
 export class HeaderComponent implements OnInit {
   categories: Category[];
+  formSearch: FormGroup;
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService,
+              private router: Router) { }
 
   ngOnInit(): void {
+    this.formSearch = new FormGroup({
+      searchValue: new FormControl()
+    })
     this.findAll();
   }
 
@@ -23,4 +30,9 @@ export class HeaderComponent implements OnInit {
       }
     )
   }
+
+  onSearch() {
+    this.router.navigateByUrl("/search?q=" + this.formSearch.get('searchValue').value + '&page=0');
+  }
+
 }

@@ -1,11 +1,8 @@
-<div class="product-categories-area pt-70 pb-70">
+<div class="product-categories-area pb-70">
   <div class="container">
     <div class="section-title-btn-wrap mb-25">
       <div class="section-title-8">
-        <h2>Popular Categories</h2>
-      </div>
-      <div class="btn-style-9">
-        <a href="shop.html">All Product</a>
+        <h2>Danh mục sách</h2>
       </div>
     </div>
     <div class="section-wrap-1">
@@ -16,7 +13,7 @@
             <div class="product-plr-1" slickItem *ngFor="let category of categories">
               <div class="single-product-wrap">
                 <div class="product-img product-img-border-transparent mb-15">
-                  <a href="#">
+                  <a [routerLink]="['/category', category.id]">
                     <img [src]="category.image" alt="{{category.name}}">
                   </a>
                 </div>

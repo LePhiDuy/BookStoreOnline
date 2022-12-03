@@ -1,19 +1,11 @@
 <div class="breadcrumb-area bg-gray">
   <div class="container">
     <div class="breadcrumb-content text-center">
-      <ul>
-        <li>
-          <a routerLink="/home">Trang chủ</a>
-        </li>
-        <li>
-          <a  routerLink="/category">Thể loại </a>
-        </li>
-        <li class="active">{{books.content[0].category.name}}</li>
-      </ul>
+      <h3 class="title">Kết quả tìm kiếm với: {{searchValue}}</h3>
     </div>
   </div>
 </div>
-<div class="shop-area pt-5 pb-120">
+<div class="shop-area pt-5 pb-120" *ngIf="books.content.length > 0">
   <div class="container">
     <div class="row flex-row-reverse">
       <div class="col-lg-12">
@@ -26,22 +18,21 @@
             <p>Hiển thị 1 - 20 trên {{books.totalElements}} kết quả </p>
           </div>
           <div class="product-sorting-wrapper">
-            <div class="product-shorting shorting-style">
-              <label>Hiển thị :</label>
-              <select name="limit" (change)="onChange($event)">
-                <option value="12">12</option>
-                <option value="24">24</option>
-                <option value="48">48</option>
-              </select>
-            </div>
-            <div class="product-show shorting-style">
-              <label>Sắp xếp :</label>
-              <select>
-                <option value=""> Mặc định</option>
-                <option value=""> Tên</option>
-                <option value=""> Giá</option>
-              </select>
-            </div>
+<!--            <div class="product-shorting shorting-style">-->
+<!--              <label>Hiển thị :</label>-->
+<!--              <select name="limit" (change)="onChange($event)">-->
+<!--                <option value="12">12</option>-->
+<!--                <option value="24">24</option>-->
+<!--                <option value="48">48</option>-->
+<!--              </select>-->
+<!--            </div>-->
+<!--            <div class="product-show shorting-style">-->
+<!--              <label>Sắp xếp :</label>-->
+<!--              <select #typeSort (change)="onSort(typeSort.value)">-->
+<!--                <option value="name" selected> Tên</option>-->
+<!--                <option value="price"> Giá</option>-->
+<!--              </select>-->
+<!--            </div>-->
           </div>
         </div>
         <div class="shop-bottom-area">
@@ -97,28 +88,28 @@
                       <div class="pro-list-price">
                         <span class="new-price">{{book.price | currency : "VNĐ" : ""}} đ</span>
                       </div>
-                      </div>
-                      <p>{{book.description}}</p>
-                      <div class="product-list-action">
-                        <button title="Add To Cart"><i class="icon-basket-loaded"></i></button>
-                      </div>
+                    </div>
+                    <p>{{book.description}}</p>
+                    <div class="product-list-action">
+                      <button title="Add To Cart"><i class="icon-basket-loaded"></i></button>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
           </div>
           <div class="pro-pagination-style text-center mt-10" *ngIf="books.content.length > 0">
             <ul>
               <li *ngIf="indexPagination > 0">
-                <a class="prev" (click)="goToNextOrPreviousPage('backward', size)">
+                <a class="prev" (click)="goToNextOrPreviousPage('backward')">
                   <i class="icon-arrow-left"></i>
                 </a>
               </li>
               <li *ngFor="let pageNumber of [].constructor(books.totalPages); let i =  index;">
-                <a [ngClass]="indexPagination === i ? 'active' : ''" (click)="goToPage(i, size)">{{i + 1}}</a>
+                <a [ngClass]="indexPagination === i ? 'active' : ''" (click)="goToPage(i)">{{i + 1}}</a>
               </li>
               <li *ngIf="indexPagination + 1 < books.totalPages">
-                <a class="next" (click)="goToNextOrPreviousPage('forward', size)">
+                <a class="next" (click)="goToNextOrPreviousPage('forward')">
                   <i class="icon-arrow-right"></i>
                 </a>
               </li>
@@ -128,4 +119,7 @@
       </div>
     </div>
   </div>
+</div>
+<div class="shop-area pt-5 pb-120" *ngIf="books.content.length <= 0">
+  <h3 class="text-danger notify" >Không có sản phẩm phù hợp với kết quả tìm kiếm của bạn</h3>
 </div>

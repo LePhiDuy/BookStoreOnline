@@ -1,0 +1,9 @@
+.notify {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  text-transform: uppercase;
+}
