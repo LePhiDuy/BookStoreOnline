@@ -1,0 +1,121 @@
+<div class="breadcrumb-area bg-gray">
+  <div class="container">
+    <div class="breadcrumb-content text-center">
+      <ul>
+        <li>
+          <a routerLink="/home">Trang chủ</a>
+        </li>
+        <li class="active">Đăng nhập - Đăng ký</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="login-register-area pt-50 pb-100">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+        <div class="login-register-wrapper">
+          <div class="login-register-tab-list nav">
+            <a class="active" data-toggle="tab" href="#lg1">
+              <h4> đăng nhập </h4>
+            </a>
+            <a data-toggle="tab" href="#lg2">
+              <h4> đăng ký </h4>
+            </a>
+          </div>
+          <div class="tab-content">
+            <div id="lg1" class="tab-pane active">
+              <div class="login-form-container">
+                <div class="login-register-form">
+                  <form [formGroup]="formLogin" method="post" (ngSubmit)="login()" #flg>
+                    <input type="text" name="user-name" placeholder="Tên tài khoản" formControlName="username">
+                    <div *ngIf="username.invalid && (username.touched || flg.submitted)" class="text-danger message">
+                      <div *ngIf="username.errors?.required">
+                        Tên tài khoản không được để trống.
+                      </div>
+                    </div>
+                    <input type="password" name="user-password" placeholder="Mật khẩu" formControlName="password">
+                    <div *ngIf="password.invalid && (password.touched || flg.submitted)" class="text-danger message">
+                      <div *ngIf="password.errors?.required">
+                        Mật khẩu không được để trống.
+                      </div>
+                    </div>
+                    <div class="button-box">
+                      <div class="login-toggle-btn">
+                        <input type="checkbox" formControlName="rememberMe">
+                        <label>Nhớ mật khẩu</label>
+                        <a href="#">Quên mật khẩu</a>
+                      </div>
+                      <button type="submit" class="button">Đăng nhập</button>
+                      <div class="oauth2">
+                        <div class="title">
+                          <div class="line-left"></div>
+                          <span class="text-or">hoặc</span>
+                          <div class="line-right"></div>
+                        </div>
+                        <div class="button-oauth2">
+                          <button class="btn-oauth2">
+                            <div class="logo-fb">
+                              <div class="icon social-white-background social-white-fb-blue-png"></div>
+                            </div>
+                            <div class="text">Facebook</div>
+                          </button>
+                          <button class="btn-oauth2">
+                            <div class="logo-gg">
+                              <img src="https://salt.tikicdn.com/ts/upload/1c/ac/e8/141c68302262747f5988df2aae7eb161.png" class="logo-gg" alt="google">
+                            </div>
+                            <div class="text">Google</div>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div id="lg2" class="tab-pane">
+              <div class="login-form-container">
+                <div class="login-register-form">
+                  <form action="#" method="post">
+                    <input type="text" name="user-name" placeholder="Tên tài khoản">
+                    <input name="user-email" placeholder="Địa chỉ email" type="email">
+                    <input type="password" name="user-password" placeholder="Mật khẩu">
+                    <input type="password" name="user-password" placeholder="Mật khẩu xác nhận">
+                    <div class="otp">
+                      <input type="password" name="user-password" class="input-otp" placeholder="Nhập mã OTP">
+                      <a href="" class="btn btn-primary btn-send-otp">Gửi mã OTP</a>
+                    </div>
+                    <div class="button-box">
+                      <button type="submit" class="button">Đăng ký</button>
+                      <div class="oauth2">
+                        <div class="title">
+                          <div class="line-left"></div>
+                          <span class="text-or">hoặc</span>
+                          <div class="line-right"></div>
+                        </div>
+                        <div class="button-oauth2">
+                          <button class="btn-oauth2">
+                            <div class="logo-fb">
+                              <div class="icon social-white-background social-white-fb-blue-png"></div>
+                            </div>
+                            <div class="text">Facebook</div>
+                          </button>
+                          <button class="btn-oauth2">
+                            <div class="logo-gg">
+                              <img src="https://salt.tikicdn.com/ts/upload/1c/ac/e8/141c68302262747f5988df2aae7eb161.png" class="logo-gg" alt="google">
+                            </div>
+                            <div class="text">Google</div>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

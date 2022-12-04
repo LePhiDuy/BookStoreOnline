@@ -1,6 +1,7 @@
 package vn.codegym.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -30,14 +31,14 @@ public class Customer {
     @Column(name = "address")
     private String address;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "username")
     private Account account;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JsonBackReference
+    @OneToOne(mappedBy = "customer")
     private Cart cart;
 
     @OneToMany(mappedBy = "customer")
+    @JsonManagedReference
     private Set<Order> orders;
 }

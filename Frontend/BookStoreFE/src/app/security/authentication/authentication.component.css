@@ -1,0 +1,103 @@
+.button {
+  display: flex;
+  margin: 0 auto;
+  padding: 13px 210px !important;
+  border-radius: 2px !important;
+}
+
+.line-left, .line-right {
+  height: 1px;
+  width: 100%;
+  background-color: #dbdbdb;
+  flex: 1;
+}
+
+.text-or {
+  color: #ccc;
+  padding: 0 16px;
+  text-transform: uppercase;
+  font-size: .75rem;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding-bottom: 14px;
+}
+
+.oauth2 {
+  display: block;
+  text-transform: uppercase;
+}
+
+.button-oauth2 {
+  margin: 0 -5px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  display: flex;
+  text-transform: uppercase;
+}
+
+.btn-oauth2 {
+  flex: 1;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, .26) !important;
+  background-color: #fff !important;
+  padding: 0 2px;
+  border-radius: 2px;
+  width: 100%;
+  height: 40px;
+  font-size: .875rem;
+  text-transform: none !important;
+}
+
+button {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+.text {
+  color: rgba(0, 0, 0, .87);
+}
+
+.social-white-fb-blue-png {
+  background-size: 325% 287.5%;
+  background-position: 5.55556% 62.6667%;
+}
+
+.social-white-background {
+  background-image: url("https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/7b95007f3377150730bbb5d1ddb477d6.png");
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.logo-gg {
+  height: 32px;
+  margin-right: 8px;
+}
+
+.otp {
+  display: flex;
+  justify-content: center;
+}
+
+.input-otp {
+  width: 70%;
+}
+
+.btn-send-otp {
+  height: 100%;
+  margin-left: 30px;
+  margin-top: 6px;
+}

@@ -1,5 +1,7 @@
 package vn.codegym.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -25,8 +27,10 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @JsonBackReference
     private Customer customer;
 
     @OneToMany(mappedBy = "order")
+    @JsonManagedReference
     private Set<OrderDetail> orderDetails;
 }

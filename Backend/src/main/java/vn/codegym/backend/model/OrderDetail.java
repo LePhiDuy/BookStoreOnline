@@ -15,12 +15,12 @@ public class OrderDetail {
     private int amount;
 
     @MapsId("orderId")
-    @ManyToOne(targetEntity = Order.class)
-//    @JsonBackReference
+    @ManyToOne
+    @JsonBackReference
     private Order order;
 
     @MapsId("bookId")
-    @ManyToOne(targetEntity = Book.class)
-//    @JsonBackReference
+    @ManyToOne
+    @JsonBackReference
     private Book book;
 }

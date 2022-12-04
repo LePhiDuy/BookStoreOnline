@@ -16,11 +16,11 @@ public class Account {
     private String username;
     @Column(name = "password")
     private String password;
-    @ManyToMany
-    @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "username"),
-                inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "account_role", joinColumns = {@JoinColumn(name = "username")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private List<Role> roles;
-    @OneToOne
-    @JsonBackReference
+    @OneToOne(mappedBy = "account")
+    @JsonIgnore
     private Customer customer;
 }
