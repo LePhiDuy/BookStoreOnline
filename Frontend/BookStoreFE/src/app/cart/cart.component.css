@@ -1,0 +1,16 @@
+.img {
+  width: 98px;
+  height: 112px;
+}
+
+.price {
+  color: #C92127 !important;
+  font-size: 16.5px !important;
+  font-family: Poppins, sans-serif !important;
+}
+
+.notify {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
