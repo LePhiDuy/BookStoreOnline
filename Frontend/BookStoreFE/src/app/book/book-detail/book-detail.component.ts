@@ -2,6 +2,10 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {BookService} from "../../service/book.service";
 import {Book} from "../../model/book";
 import {ActivatedRoute} from "@angular/router";
+import {CartService} from "../../service/cart.service";
+import {TokenStorageService} from "../../service/security/token-storage.service";
+import {ToastrService} from "ngx-toastr";
+import {ShareService} from "../../service/share.service";
 
 @Component({
   selector: 'app-book-detail',
@@ -11,20 +15,24 @@ import {ActivatedRoute} from "@angular/router";
 export class BookDetailComponent implements OnInit {
   book: Book;
   id: number;
-  numberRating: any[];
-  numberNotRating: any[];
+  pointStar: any[];
+  noPointStar: any[];
   books: any;
   constructor(private bookService: BookService,
               private activatedRoute: ActivatedRoute,
-              private el: ElementRef) { }
+              private el: ElementRef,
+              private cartService: CartService,
+              private tokenStorageService: TokenStorageService,
+              private toastrService: ToastrService,
+              private shareService: ShareService) { }
 
   ngOnInit(): void {
     this.id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
     this.bookService.findById(this.id).subscribe(
       data => {
         this.book = data;
-        this.numberRating = new Array(this.book.numberRating);
-        this.numberNotRating = new Array(5 - this.book.numberRating);
+        this.pointStar = new Array(this.book.pointStar);
+        this.noPointStar = new Array(5 - this.book.pointStar);
         this.findByAuthor(this.book.author);
       },
       error => {
@@ -56,4 +64,17 @@ export class BookDetailComponent implements OnInit {
     inputQuantity.value++;
   }
 
+  addToCart(bookId, amount) {
+    if (this.tokenStorageService.isLogin()) {
+      const cartId = this.tokenStorageService.getCartId();
+      this.cartService.addToCart(cartId, bookId, amount).subscribe(
+        data => {
+          this.toastrService.success(data.message, 'Thông báo');
+          this.shareService.sendClickEvent();
+        }, error => {
+          this.toastrService.warning(error.error.message, 'Thông báo');
+        }
+      )
+    }
+  }
 }

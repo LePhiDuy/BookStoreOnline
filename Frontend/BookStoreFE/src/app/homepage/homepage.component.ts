@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {BookService} from "../service/book.service";
 import {Slick} from "ngx-slickjs";
 import {Book} from "../model/book";
+import {CartService} from "../service/cart.service";
+import {TokenStorageService} from "../service/security/token-storage.service";
+import {ToastrService} from "ngx-toastr";
+import {ShareService} from "../service/share.service";
 
 @Component({
   selector: 'app-homepage',
@@ -65,8 +69,18 @@ export class HomepageComponent implements OnInit {
 
   books: Array<Book>;
   id: number;
-  bookDetail: Book;
-  constructor(private bookService: BookService) { }
+  bookDetail: any;
+  quantity: number;
+  numberOfModal: number;
+  pointStar: any[];
+  noPointStar: any[];
+
+  constructor(private bookService: BookService,
+              private cartService: CartService,
+              private tokenStorageService: TokenStorageService,
+              private toastrService: ToastrService,
+              private el: ElementRef,
+              private shareService: ShareService) { }
 
   ngOnInit(): void {
     this.getAll();
@@ -82,15 +96,48 @@ export class HomepageComponent implements OnInit {
     )
   }
 
-  changeBook(id) {
+  addToCart(bookId, amount) {
+    if (this.tokenStorageService.isLogin()) {
+      const cartId = this.tokenStorageService.getCartId();
+      this.cartService.addToCart(cartId, bookId, amount).subscribe(
+        data => {
+          this.toastrService.success(data.message, 'Thông báo');
+          this.shareService.sendClickEvent();
+        }, error => {
+          this.toastrService.warning(error.error.message, 'Thông báo');
+        }
+      )
+    }
+  }
+
+  findById(id: any) {
+    if (this.numberOfModal==null){
+      this.numberOfModal=id;
+      this.quantity = 1;
+    }
+    else if (this.numberOfModal!=id){
+      this.quantity = 1;
+    }
     this.bookService.findById(id).subscribe(
-      data => {
-        this.bookDetail = data;
+      data=>{
+        this.bookDetail=data;
         console.log(this.bookDetail);
-      },
-      error => {
-        console.log(error);
+        this.pointStar = new Array(this.bookDetail.pointStar);
+        this.noPointStar = new Array(5 - this.bookDetail.pointStar);
       }
     )
   }
+
+  subQuantity() {
+    const inputQuantity = this.el.nativeElement.querySelector('.cart-plus-minus-box');
+    if (inputQuantity.value > 1) {
+      inputQuantity.value--;
+    }
+  }
+
+  addQuantity() {
+    const inputQuantity = this.el.nativeElement.querySelector('.cart-plus-minus-box');
+    inputQuantity.value++;
+  }
+
 }

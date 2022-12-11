@@ -5,7 +5,7 @@
         <div class="row align-items-center">
           <div class="col-xl-2 col-lg-2">
             <div class="logo">
-              <a href="index.html"><img src="../assets/images/logo/logo_canva.png" alt="logo"></a>
+              <a routerLink="/home"><img src="../assets/images/logo/logo_canva.png" alt="logo"></a>
             </div>
           </div>
           <div class="col-xl-7 col-lg-7">
@@ -13,7 +13,7 @@
               <div class="search-wrap-3">
                 <form [formGroup]="formSearch" (ngSubmit)="onSearch()">
                   <input placeholder="Tìm kiếm sách..." type="text" formControlName="searchValue">
-                  <button class="orange"><i class="lnr lnr-magnifier"></i></button>
+                  <button class="orange" type="submit"><i class="lnr lnr-magnifier"></i></button>
                 </form>
               </div>
             </div>
@@ -21,12 +21,23 @@
           <div class="col-xl-3 col-lg-3">
             <div class="header-action header-action-flex">
               <div class="same-style-2 same-style-2-white same-style-2-hover-black same-style-2-font-inc">
-                <a routerLink="/authentication"><i class="icon-user"></i></a>
+                <a routerLink="/authentication" [hidden]="isLogin"><span class="account-no-login">Tài khoản</span> <i class="icon-user"></i></a>
+                <div class="dropdown" [hidden]="!isLogin">
+                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" style="font-size: 18px !important;"><i class="fa-solid fa-circle-user"></i> {{username}}</a>
+                  <ul class="dropdown-menu ml-3">
+                    <li>
+                      <a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#logOutModal" style="font-size: 16px !important;">
+                        <i class="fa-solid fa-right-to-bracket icon-header red-color"></i>
+                        Đăng xuất
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
               <div class="same-style-2 same-style-2-white same-style-2-hover-black same-style-2-font-inc header-cart">
-                <a class="cart-active" href="#">
-                  <i class="icon-basket-loaded"></i><span class="pro-count black">02</span>
-                  <span class="cart-amount white">$2,435.30</span>
+                <a routerLink="/cart">
+                  <i class="icon-basket-loaded"></i><span class="pro-count black" [hidden]="!isLogin ||  numberCartItem === 0">{{numberCartItem}}</span>
+                  <span class="cart-amount white" [hidden]="!isLogin || totalPrice === 0">{{totalPrice | currency : "VNĐ" : "" : '1.0-0'}}đ</span>
                 </a>
               </div>
             </div>
@@ -76,7 +87,18 @@
         <div class="col-7">
           <div class="header-action header-action-flex">
             <div class="same-style-2 same-style-2-white same-style-2-hover-black same-style-2-font-inc">
-              <a href="login-register.html"><i class="icon-user"></i></a>
+              <a routerLink="/authentication" [hidden]="isLogin"><i class="icon-user"></i></a>
+              <div class="dropdown" [hidden]="!isLogin">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" style="font-size: 18px !important;"><i class="fa-solid fa-circle-user"></i> {{username}}</a>
+                <ul class="dropdown-menu ml-3">
+                  <li>
+                    <a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#logOutModal" >
+                      <i class="fa-solid fa-right-to-bracket icon-header red-color"></i>
+                      Đăng xuất
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
             <div class="same-style-2 same-style-2-white same-style-2-hover-black same-style-2-font-inc header-cart">
               <a class="cart-active" href="#">
@@ -98,23 +120,20 @@
     <a class="sidebar-close"><i class="icon_close"></i></a>
     <div class="mobile-header-content-area">
       <div class="mobile-search mobile-header-padding-border-1">
-        <form class="search-form" action="#">
-          <input type="text" placeholder="Search here…">
-          <button class="button-search"><i class="icon-magnifier"></i></button>
+        <form [formGroup]="formSearch" (ngSubmit)="onSearch()">
+          <input placeholder="Tìm kiếm sách..." type="text" formControlName="searchValue">
+          <button class="orange" type="submit"><i class="lnr lnr-magnifier"></i></button>
         </form>
       </div>
       <div class="mobile-menu-wrap mobile-header-padding-border-2">
-        <!-- mobile menu start -->
         <nav>
           <ul class="mobile-menu">
             <li class="menu-item-has-children">
               <a href="index.html">Danh mục sách</a>
-              <ul class="dropdown">
-                <li><a href="index.html">Sách khoa học </a></li>
-                <li><a href="index-2.html">Sách thiếu nhi</a></li>
-                <li><a href="index-3.html">Kỹ năng sống</a></li>
-                <li><a href="index-4.html">Văn học trong nước</a></li>
-                <li><a href="index-5.html">Văn học nước ngoài</a></li>
+              <ul>
+                <li *ngFor="let category of categories">
+                  <a class="list-nav" href="/category/{{category.id}}"> {{category.name}} </a>
+                </li>
               </ul>
             </li>
             <li class="menu-item-has-children ">
@@ -126,7 +145,7 @@
             <li class="menu-item-has-children ">
               <a href="#">Chương trình khuyến mãi</a>
             </li>
-            <li><a href="contact.html">Liên hệ</a></li>
+            <li><a href="#">Liên hệ</a></li>
           </ul>
         </nav>
         <!-- mobile menu end -->
@@ -140,44 +159,20 @@
     </div>
   </div>
 </div>
-<!-- mini cart start -->
-<div class="sidebar-cart-active">
-  <div class="sidebar-cart-all">
-    <a class="cart-close" href="#"><i class="icon_close"></i></a>
-    <div class="cart-content">
-      <h3>Shopping Cart</h3>
-      <ul>
-        <li class="single-product-cart">
-          <div class="cart-img">
-            <a href="#"><img src="../assets/images/cart/cart-1.jpg" alt=""></a>
-          </div>
-          <div class="cart-title">
-            <h4><a href="#">Simple Black T-Shirt</a></h4>
-            <span> 1 × $49.00	</span>
-          </div>
-          <div class="cart-delete">
-            <a href="#">×</a>
-          </div>
-        </li>
-        <li class="single-product-cart">
-          <div class="cart-img">
-            <a href="#"><img src="../assets/images/cart/cart-2.jpg" alt=""></a>
-          </div>
-          <div class="cart-title">
-            <h4><a href="#">Norda Backpack</a></h4>
-            <span> 1 × $49.00	</span>
-          </div>
-          <div class="cart-delete">
-            <a href="#">×</a>
-          </div>
-        </li>
-      </ul>
-      <div class="cart-total">
-        <h4>Subtotal: <span>$170.00</span></h4>
+
+<div class="modal fade" id="logOutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title fs-5 text-danger" id="exampleModalLabel" style="font-size: 20px">Xác nhận đăng xuất</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="cart-checkout-btn">
-        <a class="btn-hover cart-btn-style" href="cart.html">view cart</a>
-        <a class="no-mrg btn-hover cart-btn-style" href="checkout.html">checkout</a>
+      <div class="modal-body" style="font-size: 18px">
+        Bạn có chắc chắn muốn đăng xuất ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-success" (click)="logOut()" data-bs-dismiss="modal">Đồng ý</button>
       </div>
     </div>
   </div>

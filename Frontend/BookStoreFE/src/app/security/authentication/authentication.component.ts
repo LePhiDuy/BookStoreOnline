@@ -33,12 +33,13 @@ export class AuthenticationComponent implements OnInit {
   login(): void {
     if (this.formLogin.valid) {
       this.authService.login(this.formLogin.value).subscribe(
-        data => {
-          this.tokenStorageService.saveTokenSession(data.accessToken);
-          this.accountService.getUserFromToken(data.accessToken).subscribe(
+        dataLogin => {
+          this.tokenStorageService.saveTokenSession(dataLogin.accessToken);
+          this.accountService.getUserFromToken(dataLogin.accessToken).subscribe(
             data => {
               this.tokenStorageService.saveUserSession(data);
-              this.authService.isLoggedIn = true;
+              this.tokenStorageService.saveCartIdSession(dataLogin.cartId);
+              this.tokenStorageService.saveLogin();
               this.formLogin.reset();
               this.shareService.sendClickEvent();
               this.toastrService.success('', 'Đăng nhập thành công', {

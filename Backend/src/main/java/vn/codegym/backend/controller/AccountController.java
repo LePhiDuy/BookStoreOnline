@@ -19,12 +19,12 @@ public class AccountController {
     @Autowired
     private JwtUtil jwtUtil;
     @GetMapping("/getAccountFromToken")
-    public ResponseEntity<Account> getUserFormToken(@RequestParam String token)  {
+    public ResponseEntity<Account> getAccountFromToken(@RequestParam String token)  {
         String username = jwtUtil.getUsernameFromToken(token);
-        Optional<Account> userOptional = accountService.findByUsername(username);
+        Optional<Account> accountOptional = accountService.findByUsername(username);
 
-        if(!userOptional.isPresent())
+        if(!accountOptional.isPresent())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
+        return new ResponseEntity<>(accountOptional.get(), HttpStatus.OK);
     }
 }

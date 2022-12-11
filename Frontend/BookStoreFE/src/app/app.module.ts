@@ -11,9 +11,11 @@ import {CategoryModule} from "./category/category.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SecurityModule} from "./security/security.module";
 import {ToastrModule} from "ngx-toastr";
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {JwtInterceptor} from "./helper/jwt-interceptor";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {CartModule} from "./cart/cart.module";
+import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     BookModule,
     CategoryModule,
     SecurityModule,
+    CartModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     NgxSlickJsModule.forRoot({
@@ -45,7 +49,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
-    }
+    },
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService
   ],
   bootstrap: [AppComponent]
 })

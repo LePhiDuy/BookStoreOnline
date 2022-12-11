@@ -39,18 +39,18 @@
           </div>
           <div class="product-ratting-review-wrap">
             <div class="product-ratting-digit-wrap">
-              <div class="product-ratting" *ngFor="let i of numberRating">
+              <div class="product-ratting" *ngFor="let i of pointStar">
                 <i class="fa fa-star" aria-hidden="true"></i>
               </div>
-              <div class="product-ratting" *ngFor="let i of numberNotRating">
+              <div class="product-ratting" *ngFor="let i of noPointStar">
                 <i class="fa fa-star" aria-hidden="true" style="color: grey"></i>
               </div>
               <div class="product-digit">
-                <span>{{book.numberRating}}/5</span>
+                <span>{{book.pointStar}}/5</span>
               </div>
             </div>
             <div class="product-review-order">
-              <span>62 đánh giá</span>
+              <span>{{book.numberRating}} đánh giá</span>
             </div>
           </div>
           <div class="pro-details-price">
@@ -60,13 +60,13 @@
             <span>Số lượng:</span>
             <div class="cart-plus-minus">
               <div class="dec qtybutton" (click)="subQuantity()">-</div>
-              <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+              <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" #amount>
               <div class="inc qtybutton" (click)="addQuantity()">+</div>
             </div>
           </div>
           <div class="pro-details-action-wrap">
             <div class="pro-details-add-to-cart">
-              <a title="Add to Cart" href="#">Add To Cart </a>
+              <a title="Add to Cart" (click)="addToCart(book.id, amount.value)">Add To Cart </a>
             </div>
           </div>
         </div>

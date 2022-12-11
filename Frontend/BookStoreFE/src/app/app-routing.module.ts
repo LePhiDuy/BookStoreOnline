@@ -10,7 +10,8 @@ const routes: Routes = [
   },
   { path: 'book', loadChildren: () => import('./book/book.module').then(m => m.BookModule) },
   { path: 'category', loadChildren: () => import('./category/category.module').then(m => m.CategoryModule) },
-  { path: 'security', loadChildren: () => import('./security/security.module').then(m => m.SecurityModule) }
+  { path: 'security', loadChildren: () => import('./security/security.module').then(m => m.SecurityModule) },
+  { path: 'cart', loadChildren: () => import('./cart/cart.module').then(m => m.CartModule) }
 ];
 
 @NgModule({

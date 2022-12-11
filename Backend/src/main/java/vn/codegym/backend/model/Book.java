@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -44,6 +46,10 @@ public class Book {
     private int totalPages;
     @Column(name = "number_rating")
     private int numberRating;
+    @Column(name = "point_star")
+    @Min(value = 0)
+    @Max(value = 5)
+    private int pointStar;
     @Column(name = "weight")
     private double weight;
     @Column(name = "description", columnDefinition = "TEXT")
