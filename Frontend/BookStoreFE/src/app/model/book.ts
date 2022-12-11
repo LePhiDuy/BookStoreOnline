@@ -12,6 +12,7 @@ export interface Book {
   language: string;
   totalPages: number;
   numberRating: number;
+  pointStar: number;
   weight: number;
   description: number;
   category: Category;

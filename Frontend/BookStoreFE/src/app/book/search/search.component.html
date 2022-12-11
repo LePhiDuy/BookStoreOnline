@@ -15,24 +15,7 @@
               <a class="active" href="#shop-1" data-toggle="tab"><i class="icon-grid"></i></a>
               <a href="#shop-2" data-toggle="tab"><i class="icon-menu"></i></a>
             </div>
-            <p>Hiển thị 1 - 20 trên {{books.totalElements}} kết quả </p>
-          </div>
-          <div class="product-sorting-wrapper">
-<!--            <div class="product-shorting shorting-style">-->
-<!--              <label>Hiển thị :</label>-->
-<!--              <select name="limit" (change)="onChange($event)">-->
-<!--                <option value="12">12</option>-->
-<!--                <option value="24">24</option>-->
-<!--                <option value="48">48</option>-->
-<!--              </select>-->
-<!--            </div>-->
-<!--            <div class="product-show shorting-style">-->
-<!--              <label>Sắp xếp :</label>-->
-<!--              <select #typeSort (change)="onSort(typeSort.value)">-->
-<!--                <option value="name" selected> Tên</option>-->
-<!--                <option value="price"> Giá</option>-->
-<!--              </select>-->
-<!--            </div>-->
+            <p>Hiển thị {{start}} - {{end}} trên {{books.totalElements}} kết quả </p>
           </div>
         </div>
         <div class="shop-bottom-area">
@@ -47,11 +30,11 @@
                       </a>
                       <div class="product-action-wrap">
                         <div class="product-action-left">
-                          <button style="font-size: 13px !important;"><i class="icon-basket-loaded"></i>Thêm vào giỏ hàng
+                          <button style="font-size: 13px !important;" (click)="addToCart(book.id, 1)"><i class="icon-basket-loaded"></i>Thêm vào giỏ hàng
                           </button>
                         </div>
                         <div class="product-action-right tooltip-style">
-                          <button data-toggle="modal" data-target="#exampleModal"><i
+                          <button data-toggle="modal" data-target="#exampleModal" (click)="findById(book.id)"><i
                             class="icon-size-fullscreen icons"></i><span>Xem nhanh</span>
                           </button>
                         </div>
@@ -61,7 +44,7 @@
                       <div class="product-content-left">
                         <h4><a href="product-details.html" class="product-name">{{book.name}}</a></h4>
                         <div class="product-price">
-                          <span class="price">{{book.price| currency : "VNĐ":""}} đ</span>
+                          <span class="price">{{book.price| currency : "VNĐ":"" : '1.0-0'}} đ</span>
                         </div>
                       </div>
                     </div>
@@ -78,7 +61,9 @@
                         <img [src]="book.imgUrl" alt="Product Style">
                       </a>
                       <div class="product-list-quickview">
-                        <button title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
+                        <button title="Quick View" data-toggle="modal" data-target="#exampleModal" (click)="findById(book.id)">
+                          <i class="icon-size-fullscreen icons"></i>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -86,12 +71,12 @@
                     <div class="shop-list-content">
                       <h3><a [routerLink]="['/book', book.id]">{{book.name}}</a></h3>
                       <div class="pro-list-price">
-                        <span class="new-price">{{book.price | currency : "VNĐ" : ""}} đ</span>
+                        <span class="new-price">{{book.price | currency : "VNĐ" : "" : '1.0-0'}} đ</span>
                       </div>
                     </div>
                     <p>{{book.description}}</p>
                     <div class="product-list-action">
-                      <button title="Add To Cart"><i class="icon-basket-loaded"></i></button>
+                      <button title="Add To Cart" (click)="addToCart(book.id, 1)"><i class="icon-basket-loaded"></i></button>
                     </div>
                   </div>
                 </div>
@@ -122,4 +107,64 @@
 </div>
 <div class="shop-area pt-5 pb-120" *ngIf="books.content.length <= 0">
   <h3 class="text-danger notify" >Không có sản phẩm phù hợp với kết quả tìm kiếm của bạn</h3>
+</div>
+
+<!--Modal quick view-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+      </div>
+      <div class="modal-body" *ngIf="bookDetail">
+        <div class="row">
+          <div class="col-lg-5 col-md-6 col-12 col-sm-12">
+            <div class="tab-content quickview-big-img">
+              <div id="pro-1" class="tab-pane fade show active">
+                <img src="{{bookDetail.imgUrl}}" alt="{{bookDetail.name}}">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7 col-md-6 col-12 col-sm-12">
+            <div class="product-details-content quickview-content">
+              <h2>{{bookDetail.name}}</h2>
+              <div class="product-ratting-review-wrap">
+                <div class="product-ratting-digit-wrap">
+                  <div class="product-ratting" *ngFor="let i of pointStar">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                  </div>
+                  <div class="product-ratting" *ngFor="let i of noPointStar">
+                    <i class="fa fa-star" aria-hidden="true" style="color: grey"></i>
+                  </div>
+                  <div class="product-digit">
+                    <span>{{bookDetail.pointStar}} / 5</span>
+                  </div>
+                </div>
+                <div class="product-review-order">
+                  <span>{{bookDetail.numberRating}} đánh giá</span>
+                </div>
+              </div>
+              <p>{{bookDetail.description}}</p>
+              <div class="pro-details-price">
+                <span class="new-price">{{bookDetail.price | currency : 'VNĐ' : '' : '1.0-0'}} đ</span>
+              </div>
+              <div class="pro-details-quality">
+                <span>Số lượng:</span>
+                <div class="cart-plus-minus">
+                  <div class="dec qtybutton" (click)="subQuantity()">-</div>
+                  <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" #amount>
+                  <div class="inc qtybutton" (click)="addQuantity()">+</div>
+                </div>
+              </div>
+              <div class="pro-details-action-wrap">
+                <div class="pro-details-add-to-cart">
+                  <a (click)="addToCart(bookDetail.id, amount.value)">Thêm vào giỏ hàng </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
